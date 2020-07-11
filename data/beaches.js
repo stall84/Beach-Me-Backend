@@ -333,7 +333,7 @@ const beachListNE = [
         name: 'Manchester by the Sea',
         state: 'MA',
         lat: 42.570648,
-        lng: -70763805
+        lng: -70.763805
     },
     {
         
