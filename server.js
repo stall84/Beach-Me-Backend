@@ -26,6 +26,7 @@ app.use(cors());
 
 // Routing
 app.use('/api/v1/beaches', require('./routes/beaches'))
+app.use('/api/v1/get-trips', require ('./routes/get-trips'))
 
 
  

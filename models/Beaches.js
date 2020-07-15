@@ -8,6 +8,11 @@ const BeachSchema = new mongoose.Schema({
         trim: true,
         maxLength: 50
     },
+    state: {
+        type: String,
+        required: true,
+        maxLength: 2
+    },
     location: {
         type: {
             type: String,
