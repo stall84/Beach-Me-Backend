@@ -1,17 +1,10 @@
 
-const Beaches = require('../models/Beaches');
-
 // @description: Get all of the beaches in DB
 // @route GET /api/v1/beaches
 // @access PUBLIC (no auth)
 
-exports.getTrips = async (req,res,next) => {
-    try {
-        console.log('Redux Coords from Front: ', req.body.reduxLat, req.body.reduxLng)
-    } catch (error) {
-        console.log('Error on getTrips Controller POST request: ', error)
-    }
-}
+const Beaches = require('../models/Beaches');
+
 
 exports.getBeaches = async (req,res,next) => {
     try {   
