@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+// Model-Schema for our mongoDB 
+
 const BeachSchema = new mongoose.Schema({
     beachName: {
         type: String,
