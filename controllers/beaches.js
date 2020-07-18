@@ -8,9 +8,10 @@ const Beaches = require('../models/Beaches');
 
 exports.getBeaches = async (req,res,next) => {
     try {   
-        //const beaches = await Beaches.find();
+            // Format longitude before latitude in req body from client for mongoDB geoJSON 
         const origins = [parseFloat(req.body.lng), parseFloat(req.body.lat)]
-        //console.log('ORIGINS NEXT: ', origins)
+            // Use mongoDB aggregate method on our Beaches database to find nearest beaches to the client/user
+            // Using point-radius off of client coords within 500 miles (804km)
         const nearestBeaches = await Beaches.aggregate([
             {
             $geoNear: {
@@ -22,7 +23,7 @@ exports.getBeaches = async (req,res,next) => {
         }
         }
     ])
-        //console.log('Nearest Beaches: ', nearestBeaches)      
+          
         return res.status(200).json({
             success: true,
             count: nearestBeaches.length,
