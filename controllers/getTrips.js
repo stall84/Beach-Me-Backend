@@ -19,14 +19,24 @@ exports.getTrips = async (req,res,next) => {
         let travelmode = 'DRIVING'
         let origin = [`${req.body.reduxLat},${req.body.reduxLng}`];
         let destinations = [];
+        let searchBeaches = req.body.searchBeaches;
+        let searchBeachNames = req.body.searchBeaches.map(beach => beach.beachName)
         // 'loop' through req body's large searchBeach array and pull out just the nested lat and lng. no spaces per google's formating
-        req.body.searchBeaches.forEach(beach => {
+        searchBeaches.forEach(beach => {
             destinations.push(`${beach.location.coordinates[1].$numberDecimal},${beach.location.coordinates[0].$numberDecimal}`)
         })
         distance.matrix(origin, destinations, travelmode, function(error, distances) {
-            if (!error) {
-                res.json(distances.rows);
-                console.log('Google Distance Response: ', distances);
+            if (!error && distances) {
+                res.json(distances);
+                //console.log('Google Distance Response: ', distances)
+                console.log('Logging distances.rows[0].elements[0].duration.value: ', distances.rows[0].elements[0].duration.value)
+                let distArr = distances.rows[0].elements.map((durations, i) => {
+                    return durations.duration.value
+                    
+                })
+                console.log('Logging distArr: ', distArr)
+                let mergedArr = searchBeachNames.map((beach, i) => ({name:beach, dur:distArr[i]}))
+                console.log('Merged Array: ', mergedArr)
             }
         })
         
