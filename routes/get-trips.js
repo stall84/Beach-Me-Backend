@@ -7,11 +7,6 @@ router
     .route('/')
     .post(getTrips)
     
-    
-        
-    
-    
-
 
 
 

@@ -21,9 +21,7 @@ exports.getTrips = async (req,res,next) => {
         let destinations = [];
         let searchBeaches = req.body.searchBeaches;
             // Here combining the state prop with the beachName prop to form one string of beach and state.. this might cause an issue with weather api
-        let beachNamesStates = req.body.searchBeaches.map(beach => beach.beachName + ',' + beach.state)
-       
-        
+        let beachNamesStates = req.body.searchBeaches.map(beach => beach.beachName + ',' + beach.state)       
         // 'loop' through req body's large searchBeach array and pull out just the nested lat and lng. no spaces per google's formating
         searchBeaches.forEach(beach => {
             destinations.push(`${beach.location.coordinates[1].$numberDecimal},${beach.location.coordinates[0].$numberDecimal}`)
@@ -49,8 +47,6 @@ exports.getTrips = async (req,res,next) => {
                 })
             }
         })
-       
-        
     } catch (error) {
         console.log('Error on getTrips Controller POST request: ', error)
     }
