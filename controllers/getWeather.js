@@ -1,30 +1,47 @@
-
-const weather = require('openweather-apis');
-const Beaches = require('../models/Beaches');
+const axios = require('axios');
 require('dotenv').config();
+const Beaches = require('../models/Beaches');
 
 
-// @description: Query OpenWeatherMap's API to return 5-day forecasts for our 5 closest beaches
-//               ..Heavily reliant on using the node module 'openweather-apis' in this build
-// @route GET /api/v1/get-weather
-// @access PUBLIC (no auth)
+// Original node module was not well supported and would not make 5 day forecast call so switching to basic axios call
+
 
 
 exports.getWeather = async (req,res,next) => {
     try {
-        weather.setAPPID(process.env.WX_API_KEY);
-        weather.setLang('en');
-        weather.setUnits('imperial');
-        weather.setCity('Atlanta,GA,');
-
-
-        weather.getWeatherForecastForDays(3, function(err, weatherObj) {
-            if (err) {console.log('Error in forecast request: ', err)};
-            res.json(weatherObj)
-            console.log('OpenWeather Response: ', weatherObj)
-})
+        var weatherArr = [];
+        let fiveBeachArr = req.body.fiveBeaches.map(beach => beach.name)
+        let wxUrl = `api.openweathermap.org/data/2.5/forecast?q={city name},{state code}&appid=${process.env.WX_API_KEY}`
+        console.log('FiveBeachArr: ', fiveBeachArr)
+          
+        await fiveBeachArr.map((beach) => {
+            axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${beach},&appid=${process.env.WX_API_KEY}`)
+            .then(res => {
+                weatherArr.push({
+                    forecast: res.data
+                })
+                console.log('weatherArr: ', weatherArr)
+                // weatherArray = res.data
+                // console.log('weatherArray: ', weatherArray)
+                // console.log('openWeather Response: ', res.data.list.forEach(item => {
+                //     item.clouds
+                // }))
+                // res.json({
+                //     data: res.data
+                // })
+            })
+            
+            })
+            return res.status(200).json({
+                success: true,
+                length: weatherArr.length,
+                data: weatherArr
+        })
+        
+    
+           
+       
     } catch (error) {
-        console.log('Error getting weather: ', error)
-} 
+        console.log('There was an error retrieving weather forecasts: ', error)
+    }
 }
-
