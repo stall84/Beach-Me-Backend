@@ -9,15 +9,20 @@ const Beaches = require('../models/Beaches');
 
 exports.getWeather = async (req,res,next) => {
     try {
+        var weatherArr = [];
         let fiveBeachArr = req.body.fiveBeaches.map(beach => beach.name)
         let wxUrl = `api.openweathermap.org/data/2.5/forecast?q={city name},{state code}&appid=${process.env.WX_API_KEY}`
         console.log('FiveBeachArr: ', fiveBeachArr)
           
-        await fiveBeachArr.forEach(beach => {
+        await fiveBeachArr.map((beach) => {
             axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${beach},&appid=${process.env.WX_API_KEY}`)
             .then(res => {
-                weatherArray = res.data
-                console.log('weatherArray: ', weatherArray)
+                weatherArr.push({
+                    forecast: res.data
+                })
+                console.log('weatherArr: ', weatherArr)
+                // weatherArray = res.data
+                // console.log('weatherArray: ', weatherArray)
                 // console.log('openWeather Response: ', res.data.list.forEach(item => {
                 //     item.clouds
                 // }))
@@ -25,7 +30,15 @@ exports.getWeather = async (req,res,next) => {
                 //     data: res.data
                 // })
             })
+            
+            })
+            return res.status(200).json({
+                success: true,
+                length: weatherArr.length,
+                data: weatherArr
         })
+        
+    
            
        
     } catch (error) {

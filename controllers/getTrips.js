@@ -34,7 +34,7 @@ exports.getTrips = async (req,res,next) => {
                     // Here we are merging the trip duration array returned from distance matrix and transposing those times onto 
                     // our database beach list.
                     let mergedArr = beachNamesStates.map((beach, i) => ({name:beach, dur:distArr[i]}))
-                    console.log('Merged Array: ', mergedArr)
+                    
                     // Here we're sorting the mergedArray ascending by the objects values (duration in seconds in this case)
                     let sortedArr = mergedArr.sort(function (a,b) { return a.dur - b.dur } )
                     // Taking the first 5 closest beaches to user
