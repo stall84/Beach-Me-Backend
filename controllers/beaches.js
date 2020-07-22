@@ -8,6 +8,7 @@ const Beaches = require('../models/Beaches');
 
 exports.getBeaches = async (req,res,next) => {
     try {   
+        console.log('Getting BeachSearch Request... ')
             // Format longitude before latitude in req body from client for mongoDB geoJSON 
         const origins = [parseFloat(req.body.lng), parseFloat(req.body.lat)]
             // Use mongoDB aggregate method on our Beaches database to find nearest beaches to the client/user
