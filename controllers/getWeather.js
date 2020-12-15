@@ -13,7 +13,7 @@ exports.getWeather = async (req,res,next) => {
 
         // console.log('FiveBeachArr: ', fiveBeachArr)  // For Debug Purposes
    
-        weatherArr = await Promise.all(fiveBeachArr.map(beach => axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${beach},&appid=${process.env.WX_API_KEY}`)))
+        weatherArr = await Promise.all(fiveBeachArr.map(beach => axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${beach},&appid=${process.env.WX_API_KEY}&units=imperial`)))
             // console.log('LOWER weatherArr: ', weatherArr)   // For Debug Purposes
             return res.status(200).json({
                 success: true,
