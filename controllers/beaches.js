@@ -1,6 +1,6 @@
 
 // @description: Get all of the beaches in DB
-// @route GET /api/v1/beaches
+// @route POST /api/v1/beaches
 // @access PUBLIC (no auth)
 
 const Beaches = require('../models/Beaches');
@@ -8,7 +8,6 @@ const Beaches = require('../models/Beaches');
 
 exports.getBeaches = async (req,res,next) => {
     try {   
-        console.log('Getting BeachSearch Request... ')
             // Format longitude before latitude in req body from client for mongoDB geoJSON 
         const origins = [parseFloat(req.body.lng), parseFloat(req.body.lat)]
             // Use mongoDB aggregate method on our Beaches database to find nearest beaches to the client/user
@@ -16,12 +15,16 @@ exports.getBeaches = async (req,res,next) => {
         const nearestBeaches = await Beaches.aggregate([
             {
             $geoNear: {
-            near: {
-            type: 'Point', coordinates: origins },
-            distanceField: 'dist.calculated',
-            maxDistance: 804672, 
-            spherical: true
-        }
+                near: {
+                    type: 'Point', coordinates: origins 
+                },
+                distanceField: 'dist.calculated',
+                maxDistance: 804672, 
+                spherical: true,
+            },
+        },
+        { 
+            $limit: 20          // Limit beaches returned to 20 to adhere to Google API limits
         }
     ])
           

@@ -6,7 +6,7 @@ require('dotenv').config();
 
 
 // @description: Query Google Distance Matrix for trip times to selected beaches
-// @route GET /api/v1/get-trips
+// @route POST /api/v1/get-trips
 // @access PUBLIC (no auth)
 
 // Configure Google Distance Matrix API request
