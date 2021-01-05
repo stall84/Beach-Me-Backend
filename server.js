@@ -37,7 +37,7 @@ app.use(cors());
 
 // data-dog middleware
 app.use(connect_datadog);
-app.use(router);
+
 
 // Routing
 app.use('/api/v1/beaches', require('./routes/beaches'));
