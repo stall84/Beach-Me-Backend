@@ -2,3 +2,5 @@
 01/05/2020 : Temporarily removing DataDog buildpack to get Dyno back up. Will consider making heroku Procfile.
 01/05/2020 : Re-added the DataDog buildpack via Heroku CLI this time specifying --index 1 flag. 
 01/05/2020 : Added Datadog webhook to github remote repo for testing (Also added to v3 Client repo)
+
+01/05/2020 : Added npm package hot-shots for Data-Dog Node monitoring. Added config code to top of server.js and implementation code to bottom of server.js

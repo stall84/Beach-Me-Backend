@@ -5,6 +5,10 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
+// Adding DataDog Monitoring for Trial 
+
+var StatsD = require('hot-shots');
+var dogstatsd = new StatsD();
 
 // Load environment variables 
 dotenv.config({
@@ -38,3 +42,6 @@ const PORT = process.env.PORT || 5005;
 app.listen(PORT, () => {
     console.log(`Beach-Me Server up and running in ${process.env.NODE_ENV}, on Port: ${PORT}`)
 });
+
+
+dogstatsd.increment('page.views');
