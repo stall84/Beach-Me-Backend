@@ -4,3 +4,4 @@
 01/05/2020 : Added Datadog webhook to github remote repo for testing (Also added to v3 Client repo)
 
 01/05/2020 : Added npm package hot-shots for Data-Dog Node monitoring. Added config code to top of server.js and implementation code to bottom of server.js
+01/05/2020 : Added npm package connect-datadog for Express monitoring. Added config object in server.js and annotated adding datadog middleware just prior to routing.

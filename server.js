@@ -7,6 +7,13 @@ const connectDB = require('./config/db');
 
 // Adding DataDog Monitoring for Trial 
 
+var dd_options = {
+    'response_code' : true,
+    'tags' : ['app:my_app']
+};
+
+var connect_datadog = require('connect-datadog')(dd_options);
+
 var StatsD = require('hot-shots');
 var dogstatsd = new StatsD();
 
@@ -27,6 +34,10 @@ app.use(express.json());
 
 // Enable CORS
 app.use(cors());
+
+// data-dog middleware
+app.use(connect_datadog);
+app.use(router);
 
 // Routing
 app.use('/api/v1/beaches', require('./routes/beaches'));
