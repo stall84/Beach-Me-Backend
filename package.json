@@ -4,7 +4,7 @@
   "description": "backend and database modeling for beach-me beachfinding app",
   "main": "server.js",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "connect-datadog": "0.0.9",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
